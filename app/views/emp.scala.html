@@ -1,0 +1,21 @@
+@main("Emp") {
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#poke').click(function () {
+        $.ajax({
+            type: 'POST',
+            url: '/emp',
+            dataType: 'json',
+            data: { token: 'Ping' }
+        })
+        .done(function (data) { $('#console').append(data+'<br/>') })
+        .fail(function (data) { alert('fail') })
+        .always(function (data) { });
+    })
+})
+</script>
+<input id="poke" value="Ping" type="button"/>
+<div id="console"></div>
+
+}

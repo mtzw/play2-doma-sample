@@ -1,0 +1,4 @@
+<factorypath>
+    <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/play2-doma-sample/bundle/doma-1.35.0.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>
