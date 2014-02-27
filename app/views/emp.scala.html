@@ -1,21 +1,40 @@
-@main("Emp") {
+@main("社員検索") {
 
 <script type="text/javascript">
 $(document).ready(function () {
-    $('#poke').click(function () {
+    $('#submit').click(function () {
+    	$('#console').empty()
+    	
+    	var _id = $('#empId').val();
+    	if (jQuery.isEmptyObject(_id)) {
+    		alert('社員IDが未入力')
+    		return;
+    	}
         $.ajax({
             type: 'POST',
             url: '/emp',
             dataType: 'json',
-            data: { token: 'Ping' }
+            data: { emp_id: _id }
         })
-        .done(function (data) { $('#console').append(data+'<br/>') })
-        .fail(function (data) { alert('fail') })
-        .always(function (data) { });
+        .done(function (data) { 
+        	$('#console').append(parseJSON(data))
+       	})
+        .fail(function (data) {
+        	alert(data.responseText)
+        })
+        .always(function (data) {
+        	
+        });
     })
 })
+function parseJSON(json) {
+    return "社員番号: " + json.empNo + " 名前: " + json.empName + "<br/>"
+}
 </script>
-<input id="poke" value="Ping" type="button"/>
-<div id="console"></div>
 
+社員ID: <input id="empId" type="text"/>
+<input id="submit" value="送信" type="button"/>
+<br/>
+<br/>
+<div id="console"></div>
 }

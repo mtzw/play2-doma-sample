@@ -12,28 +12,22 @@ import doma.entity.Emp;
 
 public class EmpApp extends Controller {
 
-	private static final EmpDao EMP_DAO = new EmpDaoImpl();
+	private static EmpDao empDao = new EmpDaoImpl();
 
 	public static Result index() {
 		return ok(emp.render());
 	}
 
-	public static Result ping() {
+	public static Result getEmp() {
 		Map<String, String[]> requestMap = request().body().asFormUrlEncoded();
-		if (requestMap.get("token") != null
-				&& requestMap.get("token")[0].equals("Ping")) {
-			return ok(Json.toJson("Pong"));
+		if (requestMap.get("emp_id") != null) {
+			Integer id = Integer.valueOf(requestMap.get("emp_id")[0]);
+			Emp emp = empDao.selectById(id);
+			return emp == null ? notFound(String.format(
+					"Employee(Id:%s) is NotFound.", id)) : ok(Json.toJson(emp));
 		} else {
 			return badRequest("Bad Request!");
 		}
-	}
-
-	public static Result show(Integer id) {
-		Emp emp = EMP_DAO.selectById(id);
-		if (emp != null) {
-			return ok(Json.toJson(emp));
-		}
-		return ok(String.format("Emp#%s is NotFound.", id));
 	}
 
 }
