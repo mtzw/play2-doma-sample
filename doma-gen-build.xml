@@ -16,7 +16,7 @@
 	<property name="sqlFilePattern" value="META-INF/**/*.sql" />
 
 	<path id="classpath">
-		<fileset dir="extjars" />
+		<fileset dir="bundle" />
 	</path>
 
 	<taskdef name="gen" classname="org.seasar.doma.extension.gen.task.Gen" classpathref="classpath" loaderref="loader" />
