@@ -5,11 +5,14 @@ import java.util.Map;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import plugin.doma.Transactional;
 import views.html.emp;
+import doma.DomaConfig;
 import doma.dao.EmpDao;
 import doma.dao.EmpDaoImpl;
 import doma.entity.Emp;
 
+@Transactional(configClass = DomaConfig.class)
 public class EmpApp extends Controller {
 
 	private static EmpDao empDao = new EmpDaoImpl();

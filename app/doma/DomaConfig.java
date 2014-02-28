@@ -28,14 +28,17 @@ import org.seasar.doma.jdbc.RequiresNewController;
 import org.seasar.doma.jdbc.SqlFileRepository;
 import org.seasar.doma.jdbc.dialect.Dialect;
 import org.seasar.doma.jdbc.dialect.H2Dialect;
+import org.seasar.doma.jdbc.tx.LocalTransaction;
+import org.seasar.doma.jdbc.tx.LocalTransactionalDataSource;
 
 import play.db.DB;
+import plugin.doma.PlayLogger;
 
 public class DomaConfig implements Config {
 
 	protected static final SqlFileRepository sqlfileRepository = new GreedyCacheSqlFileRepository();
 
-	protected static final JdbcLogger jdbcLogger = new PlayJdbcLogger();
+	protected static final JdbcLogger jdbcLogger = new PlayLogger();
 
 	protected static final RequiresNewController requiresNewController = new NullRequiresNewController();
 
@@ -43,7 +46,15 @@ public class DomaConfig implements Config {
 
 	protected static final Dialect dialect = new H2Dialect();
 
-	protected static final DataSource dataSource = DB.getDataSource();
+	protected static final LocalTransactionalDataSource dataSource = createDataSource();
+
+	protected static LocalTransactionalDataSource createDataSource() {
+		return new LocalTransactionalDataSource(DB.getDataSource());
+	}
+
+	public static LocalTransaction getLocalTransaction() {
+		return dataSource.getLocalTransaction(jdbcLogger);
+	}
 
 	@Override
 	public String getDataSourceName() {

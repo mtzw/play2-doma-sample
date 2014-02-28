@@ -20,7 +20,7 @@
 
 	<logger name="play" level="INFO" />
 	<logger name="application" level="INFO" />
-	<logger name="jdbc" level="DEBUG" />
+	<logger name="doma" level="DEBUG" />
 
 	<root level="ERROR">
 		<appender-ref ref="STDOUT" />
