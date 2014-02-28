@@ -6,7 +6,7 @@ $(document).ready(function () {
     	$('#console').empty()
     	
     	var _id = $('#empId').val();
-    	if (jQuery.isEmptyObject(_id)) {
+    	if ($.isEmptyObject(_id)) {
     		alert('社員IDが未入力')
     		return;
     	}
@@ -19,8 +19,9 @@ $(document).ready(function () {
         .done(function (data) { 
         	$('#console').append(parseJSON(data))
        	})
-        .fail(function (data) {
-        	alert(data.responseText)
+        .fail(function (data)  {
+//        	alert(data.responseText)
+        	$('#console').append("<font color='red'>" + data.status + " " + data.statusText + "</font>")
         })
         .always(function (data) {
         	
